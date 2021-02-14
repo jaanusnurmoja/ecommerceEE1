@@ -1,6 +1,7 @@
 package ee.sda.ecommerce.controllers;
 
 import ee.sda.ecommerce.entities.Product;
+import ee.sda.ecommerce.services.CategoryService;
 import ee.sda.ecommerce.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,17 +25,21 @@ public class ProductController {
     @Autowired
     ProductService service;
 
+    @Autowired
+    CategoryService categoryService;
+
     // localhost:8080/product/create
     @GetMapping("/create")
     String createProductGet(Model model){
         model.addAttribute("product", new Product());
+        model.addAttribute("categories", categoryService.findAll());
         return "createProductGet";
     }
 
     @PostMapping("/create")
     RedirectView createProductPost(Product product){
         service.createOrUpdate(product);
-        return new RedirectView("/all");
+        return new RedirectView("/product/all");
     }
 
     //Model is injected by Spring

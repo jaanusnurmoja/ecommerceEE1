@@ -1,5 +1,6 @@
 package ee.sda.ecommerce.services;
 
+import ee.sda.ecommerce.entities.Category;
 import ee.sda.ecommerce.entities.Product;
 import ee.sda.ecommerce.repositories.ProductRepository;
 import ee.sda.ecommerce.utils.ProductDateUtils;
@@ -22,7 +23,15 @@ public class ProductService implements GenericService<Product> {
 
     @Override
     public List<Product> findAll() {
-        return repository.findAll();
+        List<Product> productList = repository.findAll();
+        productList.forEach(product -> {
+            Category emptyCategory = new Category();
+            emptyCategory.setName("No Category");
+            if(product.getCategory() == null){
+                product.setCategory(emptyCategory);
+            }
+            });
+        return productList;
     }
 
     @Override

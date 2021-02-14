@@ -16,26 +16,26 @@ public class CategoryService implements GenericService<Category>{
 
     @Override
     public List<Category> findAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override
     public void createOrUpdate(Category object) {
-
+        repository.save(object);
     }
 
     @Override
     public Category read(Long id) {
-        return null;
+        return repository.findById(id).get();
     }
 
     @Override
     public void delete(Category object) {
-
+        repository.delete(object);
     }
 
     @Override
     public void delete(Long id) {
-
+        repository.deleteById(id);
     }
 }

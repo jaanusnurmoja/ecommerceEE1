@@ -8,7 +8,7 @@
 <div th:each="product : ${products}">
     <label>Product: </label><h1 th:text="${product.name}"></h1>
     <label>Description: </label><h2 th:text="${product.description}"></h2>
-
+    <label>Category: </label><h2 th:text="${product.category.name}"></h2>
 </div>
 </body>
 </html>
