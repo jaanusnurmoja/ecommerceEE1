@@ -6,7 +6,7 @@
 </head>
 <body>
 <form action="#" th:action="@{/product/create}" th:object="${product}" method="post">
-    <label>product: </label><input type="text" name="name" th:field="*{name}">
+    <label>product:  </label><input type="text" name="name" th:field="*{name}">
     <label>description: </label><textarea name="description" th:field="*{description}"></textarea>
     <select th:field="*{category}">
         <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
