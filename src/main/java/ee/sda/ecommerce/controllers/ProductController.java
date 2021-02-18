@@ -6,11 +6,10 @@ import ee.sda.ecommerce.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.jetbrains.annotations.*;
 
 import java.util.List;
 
@@ -38,6 +37,29 @@ public class ProductController {
 
     @PostMapping("/create")
     RedirectView createProductPost(Product product){
+        service.createOrUpdate(product);
+        return new RedirectView("/product/all");
+    }
+
+    @GetMapping("/{id}")
+    String getOneProduct(@NotNull Model model, @PathVariable("id") Long id){
+        model.addAttribute("product", service.read(id));
+        return "oneProductGet";
+    }
+
+    @GetMapping("/{id}/edit")
+    String editProductGet(@NotNull Model model, @PathVariable("id") Long id){
+        model.addAttribute("product", service.read(id));
+        model.addAttribute("categories", categoryService.findAll());
+        return "editProductGet";
+    }
+
+    @RequestMapping(
+            value = "/{id}",
+            produces = "application/json",
+            method = {RequestMethod.PATCH, RequestMethod.PUT})
+    RedirectView editProductPatch(Product product, @PathVariable("id") Long id){
+        product = service.read(id);
         service.createOrUpdate(product);
         return new RedirectView("/product/all");
     }
