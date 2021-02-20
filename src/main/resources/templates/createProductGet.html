@@ -7,6 +7,9 @@
 <body>
 
 <form action="#" th:action="@{/product/create}" th:object="${product}" method="post">
+    <div th:each="error : ${errorMessage}">
+        <h2 th:text="${error}"></h2>
+    </div>
     <table>
         <tr>
             <td>
@@ -23,6 +26,15 @@
             <td>
                 <textarea name="description" th:field="*{description}"></textarea>
             </td>
+        </tr>
+        <tr>
+            <td>
+                <label>price:</label>
+            </td>
+            <td>
+                <input type="text" th:field="*{price}">
+            </td>
+
         </tr>
         <tr>
             <td>

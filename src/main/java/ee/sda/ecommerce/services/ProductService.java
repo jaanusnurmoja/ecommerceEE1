@@ -7,6 +7,7 @@ import ee.sda.ecommerce.utils.ProductDateUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /*
@@ -34,7 +35,20 @@ public class ProductService implements GenericService<Product> {
         return productList;
     }
 
+    public List<Product> findAllLessThanPrice(Integer value) {
+        List<Product> productList = repository.findAll();
+        productList.forEach(product -> {
+            Category emptyCategory = new Category();
+            emptyCategory.setName("No Category");
+            if(product.getCategory() == null){
+                product.setCategory(emptyCategory);
+            }
+        });
+        return productList;
+    }
+
     @Override
+    @Transactional
     public void createOrUpdate(Product object) {
         dateUtils.updateTime(object);
         repository.save(object);
@@ -53,5 +67,17 @@ public class ProductService implements GenericService<Product> {
     @Override
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    public List<Product> findProductsNameLike(String value) {
+        List<Product> productList = repository.findProductByNameContains(value);
+        productList.forEach(product -> {
+            Category emptyCategory = new Category();
+            emptyCategory.setName("No Category");
+            if(product.getCategory() == null){
+                product.setCategory(emptyCategory);
+            }
+        });
+        return productList;
     }
 }
