@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.jetbrains.annotations.*;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -30,6 +32,10 @@ public class ProductController {
     // localhost:8080/product/create
     @GetMapping("/create")
     String createProductGet(Model model){
+
+        if (model.getAttribute("errorMessage") == null){
+            model.addAttribute("errorMessage", new ArrayList<String>());
+        }
         model.addAttribute("product", new Product());
         model.addAttribute("categories", categoryService.findAll());
         return "createProductGet";
@@ -72,6 +78,21 @@ public class ProductController {
         model.addAttribute("products", productList);
         return "allProducts";
     }
+
+    @GetMapping("/value/{value}")
+    String allProducts(Model model, @PathVariable("value") Integer value){
+        List<Product> productList = service.findAllLessThanPrice(value);
+        model.addAttribute("products", productList);
+        return "allProducts";
+    }
+
+    @GetMapping("/search/{value}")
+    String allProducts(Model model, @PathVariable("value") String value){
+        List<Product> productList = service.findProductsNameLike(value);
+        model.addAttribute("products", productList);
+        return "allProducts";
+    }
+
 
 
 
