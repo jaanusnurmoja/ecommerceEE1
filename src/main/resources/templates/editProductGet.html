@@ -5,7 +5,7 @@
     <title>Edit Product</title>
 </head>
 <body>
-<form action="#" th:action="${'/product/'+id}" th:object="${product}" method="patch">
+<form action="#" th:action="${'/product/'+id + '/edit'}" th:object="${product}" method="POST">
     <input type="hidden" name="id" th:field="*{id}">
 <table>
     <tr>

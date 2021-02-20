@@ -62,11 +62,9 @@ public class ProductController {
     }
 
     @RequestMapping(
-            value = "/{id}",
-            produces = "application/json",
-            method = {RequestMethod.PATCH, RequestMethod.PUT})
+            value = "/{id}/edit",
+            method = RequestMethod.POST)
     RedirectView editProductPatch(Product product, @PathVariable("id") Long id){
-        product = service.read(id);
         service.createOrUpdate(product);
         return new RedirectView("/product/all");
     }
