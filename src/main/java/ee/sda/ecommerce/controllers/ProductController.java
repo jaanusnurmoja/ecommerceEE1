@@ -1,5 +1,6 @@
 package ee.sda.ecommerce.controllers;
 
+import ee.sda.ecommerce.dto.ProductSearchDTO;
 import ee.sda.ecommerce.entities.Product;
 import ee.sda.ecommerce.services.CategoryService;
 import ee.sda.ecommerce.services.ProductService;
@@ -86,12 +87,26 @@ public class ProductController {
         return "allProducts";
     }
 
-    @GetMapping("/search/{value}")
-    String allProducts(Model model, @PathVariable("value") String value){
-        List<Product> productList = service.findProductsNameLike(value);
+    @GetMapping("/between/{value1}/{value2}")
+    String allProducts(Model model, @PathVariable("value1") Integer value1, @PathVariable("value2") Integer value2){
+        List<Product> productList = service.findBetween(value1, value2);
         model.addAttribute("products", productList);
         return "allProducts";
     }
+
+    @PostMapping("/search")
+    String allProducts(Model model, ProductSearchDTO dto){
+        List<Product> productList = service.search(dto);
+        model.addAttribute("products", productList);
+        return "allProducts";
+    }
+
+    @GetMapping("/search")
+    String search(Model model){
+        model.addAttribute("searchDTO", new ProductSearchDTO());
+        return "search";
+    }
+
 
 
 

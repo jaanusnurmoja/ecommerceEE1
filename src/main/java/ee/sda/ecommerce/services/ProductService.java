@@ -1,5 +1,6 @@
 package ee.sda.ecommerce.services;
 
+import ee.sda.ecommerce.dto.ProductSearchDTO;
 import ee.sda.ecommerce.entities.Category;
 import ee.sda.ecommerce.entities.Product;
 import ee.sda.ecommerce.repositories.ProductRepository;
@@ -36,7 +37,19 @@ public class ProductService implements GenericService<Product> {
     }
 
     public List<Product> findAllLessThanPrice(Integer value) {
-        List<Product> productList = repository.findAll();
+        List<Product> productList = repository.getAllWithPricesLessThanValue(value);
+        productList.forEach(product -> {
+            Category emptyCategory = new Category();
+            emptyCategory.setName("No Category");
+            if(product.getCategory() == null){
+                product.setCategory(emptyCategory);
+            }
+        });
+        return productList;
+    }
+
+    public List<Product> findBetween(Integer value1, Integer value2) {
+        List<Product> productList = repository.getbetweenValue(value1, value2);
         productList.forEach(product -> {
             Category emptyCategory = new Category();
             emptyCategory.setName("No Category");
@@ -69,8 +82,21 @@ public class ProductService implements GenericService<Product> {
         repository.deleteById(id);
     }
 
-    public List<Product> findProductsNameLike(String value) {
-        List<Product> productList = repository.findProductByNameContains(value);
+    public List<Product> findProductsDescriptionLike(String value) {
+        List<Product> productList = repository.findProductByDescriptionContains(value);
+        productList.forEach(product -> {
+            Category emptyCategory = new Category();
+            emptyCategory.setName("No Category");
+            if(product.getCategory() == null){
+                product.setCategory(emptyCategory);
+            }
+        });
+        return productList;
+    }
+
+    public List<Product> search(ProductSearchDTO dto) {
+        List<Product> productList = repository
+                .findProductByNameContainsAndDescriptionContains(dto.getName(), dto.getDescription());
         productList.forEach(product -> {
             Category emptyCategory = new Category();
             emptyCategory.setName("No Category");

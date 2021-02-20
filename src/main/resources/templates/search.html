@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+    <div>
+        <form action="#" th:action="@{/product/search}" th:object="${searchDTO}" method="post">
+            <label>Name:</label>
+            <input type="text" name="name" th:field="*{name}">
+                <label>Description:</label>
+                <input type="text" name="description" th:field="*{description}">
+            <input type="submit">
+        </form>
+    </div>
+</body>
+</html>

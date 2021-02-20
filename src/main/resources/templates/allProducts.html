@@ -17,6 +17,7 @@
         <th>Product</th>
         <th>Description</th>
         <th>Category</th>
+        <th>Price</th>
         <th>Details</th>
     </tr>
     </thead>
@@ -25,6 +26,7 @@
         <td th:text="${product.name}"></td>
         <td th:text="${product.description}"></td>
         <td th:text="${product.category.name}"></td>
+        <td th:text="${product.price}"></td>
         <td><a class="btn btn-success" th:href="${'/product/'+product.id}"><button style="background-color: orange">Take a look</button> </a></td>
     </tr>
     </tbody>
