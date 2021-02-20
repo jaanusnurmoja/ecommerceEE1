@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:object="${product}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${'Product: ' + product.name}">Product:</title>
+</head>
+<body>
+    <div style="display: none" th:id="id" th:value="${product.id}"></div>
+    <h1 id="name" th:text="${product.name}"></h1>
+    <div id="description" th:text="${product.description}"></div>
+    <div id="category" th:text="${'Category: ' + product.category?.name}"></div>
+
+    <hr>
+    <a th:href="${product.id+'/edit'}"><button style="background-color: orange">Edit product</button></a>
+</body>
+</th:block>
+</html>
