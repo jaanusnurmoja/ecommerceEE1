@@ -3,14 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Search</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        let availableTags;
+        fetch("http://localhost:8080/product/names").then(
+            response => {
+                response.json().then(
+                    data => availableTags = data
+                )
+            });
+            $( "#tags" ).autocomplete({ source: this.availableTags   });
+    </script>
 </head>
 <body>
     <div>
         <form action="#" th:action="@{/product/search}" th:object="${searchDTO}" method="post">
             <label>Name:</label>
-            <input type="text" name="name" th:field="*{name}">
+            <input id="tags" type="text" name="name" th:field="*{name}">
                 <label>Description:</label>
                 <input type="text" name="description" th:field="*{description}">
+
             <input type="submit">
         </form>
     </div>

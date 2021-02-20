@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -105,5 +106,13 @@ public class ProductService implements GenericService<Product> {
             }
         });
         return productList;
+    }
+
+    public Object[] getNames() {
+        ArrayList<String> names = new ArrayList<>();
+        for(Product product : repository.findAll()){
+            names.add(product.getName());
+        }
+        return names.toArray();
     }
 }

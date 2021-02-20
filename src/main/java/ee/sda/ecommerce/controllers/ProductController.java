@@ -107,6 +107,12 @@ public class ProductController {
         return "search";
     }
 
+    @ResponseBody
+    @GetMapping("/names")
+    Object[] getNames(){
+        return service.getNames();
+    }
+
 
 
 
