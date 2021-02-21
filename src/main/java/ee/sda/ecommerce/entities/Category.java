@@ -12,7 +12,8 @@ import java.util.List;
 @Getter
 @Setter
  */
-@Data
+@Getter
+@Setter
 @Entity
 public class Category {
 

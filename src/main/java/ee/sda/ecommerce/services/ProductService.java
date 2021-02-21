@@ -1,5 +1,6 @@
 package ee.sda.ecommerce.services;
 
+import ee.sda.ecommerce.dto.ProductDTO;
 import ee.sda.ecommerce.dto.ProductSearchDTO;
 import ee.sda.ecommerce.entities.Category;
 import ee.sda.ecommerce.entities.Product;
@@ -114,5 +115,20 @@ public class ProductService implements GenericService<Product> {
             names.add(product.getName());
         }
         return names.toArray();
+    }
+
+    public List<ProductDTO> findAllDTO() {
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        List<Product> productList = repository.findAll();
+        for(Product product : productList){
+            ProductDTO productDTO = new ProductDTO();
+            productDTO.setDescription(product.getDescription());
+            productDTO.setName(product.getName());
+            productDTO.setPrice(product.getPrice());
+            productDTO.setId(product.getId());
+            productDTO.setImage(product.getImage());
+            productDTOS.add(productDTO);
+        }
+        return productDTOS;
     }
 }
