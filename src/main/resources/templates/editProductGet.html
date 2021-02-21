@@ -7,37 +7,45 @@
 <body>
 <form action="#" th:action="${'/product/'+id + '/edit'}" th:object="${product}" method="POST">
     <input type="hidden" name="id" th:field="*{id}">
-<table>
-    <tr>
-        <td>
-            <label>product:</label>
-        </td>
-        <td>
-            <input type="text" name="name" th:field="*{name}">
-        </td>
-    </tr>
-    <tr>
-    <td>
-        <label>description:</label>
-    </td>
-    <td>
-        <textarea name="description" th:field="*{description}"></textarea>
-    </td>
-</tr>
-    <tr>
-        <td>
-            <label>
-                category
-            </label>
-        </td>
-        <td>
-            <select th:field="*{category}">
-                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
-                </option>
-            </select>
-        </td>
-    </tr>
-</table>
+    <table>
+        <tr>
+            <td>
+                <label>product:</label>
+            </td>
+            <td>
+                <input type="text" name="name" th:field="*{name}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>description:</label>
+            </td>
+            <td>
+                <textarea name="description" th:field="*{description}"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>
+                    category
+                </label>
+            </td>
+            <td>
+                <select th:field="*{category}">
+                    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Price:</label>
+            </td>
+            <td>
+                <input type="text" name="price" th:field="*{price}">
+            </td>
+        </tr>
+    </table>
     <input type="submit">
 
 </form>
