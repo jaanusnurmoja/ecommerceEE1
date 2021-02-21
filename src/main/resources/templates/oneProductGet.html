@@ -10,6 +10,7 @@
     <h1 id="name" th:text="${product.name}"></h1>
     <div id="description" th:text="${product.description}"></div>
     <div id="category" th:text="${'Category: ' + product.category?.name}"></div>
+    <div id="price" th:text="${product.price}"></div>
 
     <hr>
     <a th:href="${product.id+'/edit'}"><button style="background-color: orange">Edit product</button></a>
